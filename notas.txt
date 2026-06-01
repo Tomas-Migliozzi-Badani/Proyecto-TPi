@@ -1,0 +1,1 @@
+todas las funciones q hacen una operacion con la bs son asincronas, se deben trabajar con collbacks,para trabajar con promesas se debe descargar el soporte de promesas(by saez bonilla)
