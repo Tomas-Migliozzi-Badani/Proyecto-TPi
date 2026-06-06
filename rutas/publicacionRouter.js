@@ -1,9 +1,15 @@
+import express from "express";
+import{
+    listarPublicaciones
+    mostrarFormularioCrear
+} from "../controladores/publicacionControlador.js";
 const express = require('express');
 const router = express.Router();
 
-const publicacionController = require('../controladores/publicacionControlador');
 
 
-router.get("/",publicacionController.listarPublicaciones);
+router.get("/",listarPublicaciones);
 
-module.exports = router;
+router.get("/crear",mostrarFormularioCrear);
+
+export default router;
