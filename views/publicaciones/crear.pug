@@ -1,0 +1,20 @@
+doctype html
+html(lang="es")
+    head
+        title Crear publicacion - Fotaza 2
+    body 
+        h1 Crear nueva publicacion 
+
+        form(action="/publicaciones/crear" method="POST")
+            div  
+                label(for="titulo") Titulo: 
+                input(type="text" name="titulo" id="titulo" required) 
+
+            div 
+                label(for="descripcion") Descripcion: 
+                textarea(name="descripcion" id="descripcion")     
+
+            button(type="submit") Crear Publicacion 
+
+        br
+        a(href="/publicaciones") volver a las publicaciones     

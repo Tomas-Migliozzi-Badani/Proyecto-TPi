@@ -1,6 +1,8 @@
-const listarPublicaciones = (req,res) => {
-    res.send("publicaciones/listar");
+export const listarPublicaciones = (req,res) => {
+    res.render("publicaciones/listar");
 };
-module.exports = {
-    listarPublicaciones
+
+
+export const mostrarFormularioCrear = (req,res) => {
+    res.render("publicaciones/crear");
 };

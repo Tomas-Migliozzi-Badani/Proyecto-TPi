@@ -1,9 +1,11 @@
 import express from "express";
 import{
-    listarPublicaciones
+    listarPublicaciones,
     mostrarFormularioCrear
 } from "../controladores/publicacionControlador.js";
-const express = require('express');
+
+
+
 const router = express.Router();
 
 
