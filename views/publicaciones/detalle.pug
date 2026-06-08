@@ -1,10 +1,12 @@
 extends ../layout 
-doctype html
-html(lang="es")
-    head
-        title Publicaciones - PracticoTPI 
-    body 
-        h1 publicaciones de Fotaza 2
-        p aca voy a mostrar las fotos 
 
-        a(href="/") volver al inicio  
+block content 
+
+    h1= publicacion.titulo 
+    p Autor: #{publicacion.autor}
+    p Categoria: #{publicacion.categoria} 
+    p Descripcion: #{publicacion.descripcion} 
+
+    br
+    a(href=`/publicaciones/${publicacion.id}/editar`) Editar
+    a(href="/publicaciones") Volver al menu  

@@ -1,0 +1,12 @@
+extends ../layout 
+
+block content 
+    h1 Publicaciones 
+
+    each publicacion in publicaciones 
+        div
+            h3=publicacion.titulo 
+            p Autor: #{publicacion.autor} 
+            p Categoria: #{publicacion.categoria} 
+            hr
+            a(href=`/publicaciones/${publicacion.id}`) Ver detalle 
