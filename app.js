@@ -2,6 +2,7 @@ import express from "express";
 
 import publicacionRouter from './rutas/publicacionRouter.js';
 //import categoriaRouter from './rutas/categoriaRouter.js';
+import usuarioRouter from './rutas/usuarioRouter.js';
 //constantes
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -17,6 +18,7 @@ app.set('views', './views');
 app.get('/', (req,res) =>{
     res.render('index');
 })
+app.use("/usuarios",usuarioRouter);
 app.use("/publicaciones",publicacionRouter);
 //app.use("/categorias",categoriaRouter);
 /*app.get('/categorias', (req,res)=>{

@@ -1,1 +1,16 @@
 extends ../layout
+
+block content 
+    h2 inisiar sesion 
+
+
+    form(action="/usuarios/login" method="post") 
+
+        div 
+            label(for="email") Email: 
+            input(type="email" name="email")
+        div 
+            label(for="password") Password: 
+            input(type="password" name="password")
+
+        button(type="submit") Ingresar
