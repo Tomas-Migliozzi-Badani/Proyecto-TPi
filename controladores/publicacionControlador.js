@@ -1,3 +1,4 @@
+console.log("CARGUE EL CONTROLADOR DE PUBLICACIONES");
 const publicaciones = [
     {
         id:1 ,
@@ -13,12 +14,30 @@ const publicaciones = [
     }
 ];
 export const listarPublicaciones = (req,res) => {
+    
+    console.log("Query",req.query);
+
+    const termino = req.query.buscar;
+
+    console.log("termino", termino);
+
+    let publicacionFiltradas = publicaciones;
+
+    if(termino){
+        publicacionFiltradas = publicaciones.filter (
+            p => p.titulo.toLowerCase().includes(
+                termino.toLowerCase()
+            )
+        );
+    }
+    console.log("Resultado:",publicacionFiltradas);
+
+
     res.render("publicaciones/listar" , { 
-        publicaciones
+        publicaciones: publicacionFiltradas,
+        termino
     });
-};
-
-
+}; 
 export const mostrarFormularioCrear = (req,res) => {
     console.log("Entro en el formulario");
     res.render("publicaciones/crear");
@@ -56,5 +75,48 @@ export const mostrarDetallePublicacion = (req,res) => {
     });
 };
 export const mostrarFormularioEditar = (req,res) =>{
-    res.render("publicaciones/editar");
+    const id = parseInt(req.params.id);
+
+    const publicacion = publicaciones.find(
+        p => p.id === id 
+    );
+    if(!publicacion){
+        return res.send("Publicacion no encontrada");
+
+    }
+    res.render("publicaciones/editar",{
+       publicacion 
+    });
 };
+export const editarPublicacion = (req,res) =>{
+    const id = parseInt(req.params.id);
+
+    const publicacion = publicaciones.find(
+        p => p.id === id 
+    );
+    if(!publicacion){
+        return res.send("Publicacion no encontrada");
+    }
+    publicacion.titulo = req.body.titulo;
+    publicacion.categoria = req.body.categoria;
+    publicacion.autor = req.body.autor;
+
+    res.redirect("/publicaciones");
+}
+export const eliminarPublicacion = (req,res) =>{
+    console.log("Entró a eliminar");
+    const id = parseInt(req.params.id);
+
+    const indice = publicaciones.findIndex(
+        p => p.id === id 
+    );
+    console.log("ID:", id);
+    console.log("Indice:", indice);
+
+    if(indice === -1){
+        return res.send("Publicacion no encontrada");
+    }
+    publicaciones.splice(indice,1);
+
+    res.redirect("/publicaciones");
+}    

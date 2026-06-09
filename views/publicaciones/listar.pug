@@ -1,8 +1,21 @@
 extends ../layout 
 
 block content 
+    
     h1 Publicaciones 
 
+    form(action="/publicaciones" method="GET") 
+        input(type="text" name="buscar" placeholder = "Buscar publicacion" value=termino)
+
+        button(type="submit") Buscar 
+         
+    form(action="/publicaciones") 
+        
+        button(type="submit" ) resetear
+    if(publicaciones.length === 0)
+        p No se encontro la publicacion 
+
+    br
     each publicacion in publicaciones 
         div
             h3=publicacion.titulo 

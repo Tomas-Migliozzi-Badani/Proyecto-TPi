@@ -1,4 +1,21 @@
 extends ../layout 
 
-    h2 inicio 
-    p Si ves este msg, esta funcionando 
+block content 
+
+    h2 Editar publicacion 
+    
+    form(action=`/publicaciones/${publicacion.id}/editar` method="POST")
+
+        div 
+            label(for="titulo") Titulo 
+            input(type="text" name="titulo" value=publicacion.titulo)
+
+        div 
+            label(for="autor") Autor 
+            input(type="text" name="autor" value=publicacion.autor)
+        div 
+            label(for="categoria") Categoria  
+            input(type="text" name="categoria" value=publicacion.categoria)
+
+        div 
+            button(type="submit") Guardar cambios     

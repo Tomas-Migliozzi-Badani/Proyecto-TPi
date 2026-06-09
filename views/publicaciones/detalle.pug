@@ -9,4 +9,9 @@ block content
 
     br
     a(href=`/publicaciones/${publicacion.id}/editar`) Editar
+    
     a(href="/publicaciones") Volver al menu  
+
+    form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
+        button(type="submit") Eliminar publicacion 
+        
