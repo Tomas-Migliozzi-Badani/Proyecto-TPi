@@ -6,12 +6,39 @@ block content
     p Autor: #{publicacion.autor}
     p Categoria: #{publicacion.categoria} 
     p Descripcion: #{publicacion.descripcion} 
+    p Valoración: #{publicacion.valoracion}
+
+    form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
+        button(type="submit") ⭐ Me gusta
 
     br
     a(href=`/publicaciones/${publicacion.id}/editar`) Editar
     
+        
     a(href="/publicaciones") Volver al menu  
-
     form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
         button(type="submit") Eliminar publicacion 
-        
+
+    h2 Comentarios 
+
+    if comentarios.length === 0
+        p No hay comentarios todavia  
+
+    each comentario in comentarios
+        div 
+            p 
+                strong= comentario.autor     
+            p= comentario.texto
+            hr
+    h3 Agregar comentario 
+
+    form(action=`/publicaciones/${publicacion.id}/comentarios` method="POST")
+
+        div 
+            label(for="autor")  Autor
+            input(type="text" name="autor")  
+        div 
+            label(for="texto")  Comentario
+            textarea(type="text" name="texto")
+        button(type="submit") Comentar 
+

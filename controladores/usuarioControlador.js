@@ -30,3 +30,6 @@ export const iniciarSesion = (req,res) => {
     }
     res.send(`Bienvenido ${usuario.nombre}`);
 }
+export const mostrarRegistro = (req,res) => {
+    res.render(usuarios/registro);
+};

@@ -4,15 +4,47 @@ const publicaciones = [
         id:1 ,
         titulo:"atardecer" , 
         autor: "tomas" , 
-        categoria: "Naturaleza"
+        categoria: "Naturaleza" , 
+        valoracion: 0
     },
     {
         id:2 , 
         titulo: "el best" , 
         autor: "anda a saber",
-        categoria:"paisajes"
+        categoria:"paisajes" , 
+        valoracion: 0 
     }
 ];
+const seguidores = [
+    {
+        seguidor: "tomas" ,
+        seguido: "Profesor"
+    }
+]
+const comentarios = [{
+    id : 1 ,
+    publicacionId: 1 ,
+    autor: "profesor" , 
+    texto: "excelente diseño"
+    }   
+];  
+export const crearPublicacion = (req,res) => {
+    
+    console.log(req.body);
+
+    const nuevaPublicacion = {
+        
+        id:publicaciones.length + 1 ,
+        titulo: req.body.titulo , 
+        autor: req.body.autor ,
+        descripcion: req.body.descripcion
+    
+    };
+    
+    publicaciones.push(nuevaPublicacion);
+
+    res.redirect("/publicaciones");
+};
 export const listarPublicaciones = (req,res) => {
     
     console.log("Query",req.query);
@@ -43,23 +75,7 @@ export const mostrarFormularioCrear = (req,res) => {
     res.render("publicaciones/crear");
 };
 
-export const crearPublicacion = (req,res) => {
-    
-    console.log(req.body);
 
-    const nuevaPublicacion = {
-        
-        id:publicaciones.length + 1 ,
-        titulo: req.body.titulo , 
-        autor: req.body.autor ,
-        descripcion: req.body.descripcion
-    
-    };
-    
-    publicaciones.push(nuevaPublicacion);
-
-    res.redirect("/publicaciones");
-};
 
 export const mostrarDetallePublicacion = (req,res) => {
     const id = parseInt(req.params.id);
@@ -70,8 +86,14 @@ export const mostrarDetallePublicacion = (req,res) => {
     if(!publicacion){
         return res.send("publicacion no encontrada");
     }
+    const comentariosPublicacion = comentarios.filter(
+        c => c.publicacionId === id 
+    );
+
+
     res.render("publicaciones/detalle",{
-        publicacion
+        publicacion ,
+        comentarios: comentariosPublicacion
     });
 };
 export const mostrarFormularioEditar = (req,res) =>{
@@ -120,3 +142,29 @@ export const eliminarPublicacion = (req,res) =>{
 
     res.redirect("/publicaciones");
 }    
+//comentarios
+export const crearComentario = (req,res) =>{
+    
+    const publicacionId = parseInt(req.params.id);
+
+    const nuevoComentario = {
+        id: comentarios.length + 1 ,
+        publicacionId , 
+        autor: req.body.autor , 
+        texto: req.body.texto 
+    };
+
+    comentarios.push(nuevoComentario);
+
+    res.redirect(`/publicaciones/${publicacionId}`)
+}
+export const seguirUsuario = (req,res) =>{
+    const nuevoSeguimiento = {
+        seguidor: req.body.seguidor , 
+        seguido: req.body.seguido 
+
+    };
+    seguidores.push(nuevoSeguimiento); 
+
+    res.redirect("/usuarios");
+}

@@ -6,7 +6,8 @@ import{
     mostrarDetallePublicacion,
     mostrarFormularioEditar,
     editarPublicacion,
-    eliminarPublicacion
+    eliminarPublicacion,
+    crearComentario
 } from "../controladores/publicacionControlador.js";
 
 
@@ -20,6 +21,9 @@ router.get("/",listarPublicaciones)
 
 router.get("/crear", mostrarFormularioCrear);
 router.post("/crear",crearPublicacion);
+
+router.post("/:id/comentarios", crearComentario);
+router.get("/:id",mostrarDetallePublicacion);
 
 router.get("/:id/editar", mostrarFormularioEditar);
 router.post("/:id/editar", editarPublicacion);

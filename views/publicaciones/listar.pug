@@ -21,5 +21,7 @@ block content
             h3=publicacion.titulo 
             p Autor: #{publicacion.autor} 
             p Categoria: #{publicacion.categoria} 
+            form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
+                button(type="submit") ⭐ Dar Me gusta
             hr
             a(href=`/publicaciones/${publicacion.id}`) Ver detalle 
