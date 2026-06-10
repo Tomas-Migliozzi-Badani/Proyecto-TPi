@@ -13,8 +13,8 @@ block content
 
     br
     a(href=`/publicaciones/${publicacion.id}/editar`) Editar
-    
-        
+
+
     a(href="/publicaciones") Volver al menu  
     form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
         button(type="submit") Eliminar publicacion 
@@ -25,9 +25,8 @@ block content
         p No hay comentarios todavia  
 
     each comentario in comentarios
-        div 
-            p 
-                strong= comentario.autor     
+        div.comentario 
+            strong= comentario.autor     
             p= comentario.texto
             hr
     h3 Agregar comentario 

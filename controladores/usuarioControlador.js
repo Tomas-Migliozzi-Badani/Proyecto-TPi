@@ -19,6 +19,9 @@ export const mostrarLogin = (req,res) =>{
 };
 export const iniciarSesion = (req,res) => {
 
+    console.log("LOGIN EJECUTADO");
+    console.log(req.body);
+
     const {email,password} = req.body;
 
     const usuario = usuarios.find(
@@ -28,8 +31,10 @@ export const iniciarSesion = (req,res) => {
     if(!usuario){
         return res.send("Email o contraseña incorrectas");
     }
-    res.send(`Bienvenido ${usuario.nombre}`);
+    req.session.usuario = usuario ;
+    console.log("USUARIO GUARDADO:", req.session.usuario);
+    res.redirect("/publicaciones");
 }
 export const mostrarRegistro = (req,res) => {
-    res.render(usuarios/registro);
+    res.render("usuarios/registro");
 };

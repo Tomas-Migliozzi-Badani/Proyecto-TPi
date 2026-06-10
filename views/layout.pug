@@ -4,24 +4,28 @@ doctype html
 html(lang="es")
     head
         title Fotaza 2
-        link(rel="stylesheet", href="style.css")
+        link(rel="stylesheet", href="/style.css")
         block metadata 
 
  
     body 
-      nav 
-        ul 
-            li       
-                a(href="/") Inicio  
-            li 
-                a(href="/publicaciones") Publicaciones  
-            li 
-                a(href="/publicaciones/crear") Crear publicacion
-            li 
-                a(href="/usuarios/login") Iniciar sesion 
-            li 
-                a(href="/usuarios/registro") Registrarse        
+        nav 
+            ul 
+                li       
+                    a(href="/") Inicio  
+                li 
+                    a(href="/publicaciones") Publicaciones  
+                li 
+                    a(href="/publicaciones/crear") Crear publicacion
+                li 
+                    a(href="/usuarios/login") Iniciar sesion 
+                li 
+                    a(href="/usuarios/registro") Registrarse        
+        
+        if usuario 
+            div.usuario-logeado
+            strong Bienvenido #{usuario.nombre}
         main 
-        block content 
+            block content 
 
         
