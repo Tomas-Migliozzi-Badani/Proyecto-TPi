@@ -2,22 +2,33 @@ extends ../layout
 
 block content 
 
-    h1= publicacion.titulo 
-    p Autor: #{publicacion.autor}
-    p Categoria: #{publicacion.categoria} 
-    p Descripcion: #{publicacion.descripcion} 
-    p Valoración: #{publicacion.valoracion}
+    div
+        h1= publicacion.titulo 
+        p Autor: #{publicacion.autor}
+        p Categoria: #{publicacion.categoria} 
+        p Descripcion: #{publicacion.descripcion} 
+        div 
+            p Valoración promedio: #{publicacion.valoraciones || 0}
+            p Cantidad de valoraciones: #{publicacion.cantidadValoracion || 0}
+    if usuario && usuario.id === publicacion.autorId
+            form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
+                label(for="puntaje") Valorá esta publicación:
+                select(name="puntaje" id="puntaje" required)
+                    option(value="5") 5 estrellas
+                    option(value="4") 4 estrellas
+                    option(value="3") 3 estrellas
+                    option(value="2") 2 estrellas
+                    option(value="1") 1 estrella
+            button(type="submit") Guardar valoración
 
-    form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
-        button(type="submit") ⭐ Me gusta
-
-    br
-    a(href=`/publicaciones/${publicacion.id}/editar`) Editar
-
-
-    a(href="/publicaciones") Volver al menu  
-    form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
+    if usuario && usuario.id === publicacion.autorId
+        br
+        a(href=`/publicaciones/${publicacion.id}/editar`) Editar
+        form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
         button(type="submit") Eliminar publicacion 
+    br 
+    a(href="/publicaciones") Volver al menu  
+     
 
     h2 Comentarios 
 
