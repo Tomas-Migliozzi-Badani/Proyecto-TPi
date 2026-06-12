@@ -1,133 +1,299 @@
-*{
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   ESTILOS GENERALES
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-background-color: #fafafa;
-color: #262626;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #262626;
+    line-height: 1.5;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 
-nav{
-background-color: white;
-border-bottom: 1px solid #dbdbdb;
-padding: 15px;
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 14px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-nav ul{
-list-style: none;
-display: flex;
-gap: 20px;
-align-items: center;
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-nav ul li a{
-text-decoration: none;
-color: #262626;
-font-weight: bold;
+nav ul li a {
+    text-decoration: none;
+    color: #262626;
+    font-weight: bold;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-nav ul li a:hover
-
-/* CONTENEDOR PRINCIPAL */
-
-main{
-max-width: 900px;
-margin: 20px auto;
-padding: 15px;
+nav ul li a:hover {
+    background-color: #eaf4ff;
+    color: #0077cc;
 }
 
-/* USUARIO LOGUEADO */
+/* =========================
+   USUARIO LOGUEADO
+========================= */
 
-.usuario-logueado{
-background-color: white;
-border: 1px solid #dbdbdb;
-padding: 12px;
-margin: 15px auto;
-max-width: 900px;
-border-radius: 8px;
+.usuario-logueado,
+.usuario-logeado {
+    max-width: 950px;
+    margin: 18px auto 0;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-left: 5px solid #0095f6;
+    padding: 12px 16px;
+    border-radius: 8px;
 }
 
-/* TITULOS */
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
 
-h1,h2,h3{
-margin-bottom: 10px;
+main {
+    max-width: 950px;
+    margin: 24px auto;
+    padding: 0 16px;
 }
 
-/* PUBLICACIONES */
+/* =========================
+   TÍTULOS Y TEXTOS
+========================= */
 
-.publicacion{
-background-color: white;
-border: 1px solid #dbdbdb;
-border-radius: 8px;
-padding: 15px;
-margin-bottom: 20px;
+h1 {
+    font-size: 32px;
+    margin-bottom: 18px;
+    color: #1f2937;
 }
 
-.publicacion h3{
-margin-bottom: 10px;
+h2 {
+    font-size: 24px;
+    margin: 26px 0 14px;
+    color: #1f2937;
 }
 
-.publicacion p{
-margin-bottom: 8px;
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #111827;
 }
 
-.publicacion a{
-text-decoration: none;
-color: #0095f6;
+p {
+    margin-bottom: 8px;
 }
 
-/* FORMULARIOS */
+/* =========================
+   PUBLICACIONES
+========================= */
 
-form{
-margin: 15px 0;
+.publicacion {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.publicacion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.publicacion h3 {
+    color: #111827;
+}
+
+.publicacion p {
+    color: #4b5563;
+}
+
+.publicacion a,
+main a {
+    display: inline-block;
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 8px 8px 8px 0;
+}
+
+.publicacion a:hover,
+main a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+form {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #374151;
 }
 
 input,
-textarea{
-width: 100%;
-max-width: 500px;
-padding: 10px;
-border: 1px solid #dbdbdb;
-border-radius: 5px;
-margin-top: 5px;
-margin-bottom: 10px;
+textarea,
+select {
+    width: 100%;
+    max-width: 520px;
+    padding: 10px 12px;
+    border: 1px solid #cfd4dc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    background-color: #ffffff;
 }
 
-button{
-background-color: #0095f6;
-color: white;
-border: none;
-padding: 10px 15px;
-border-radius: 5px;
-cursor: pointer;
+textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-button:hover
-
-/* COMENTARIOS */
-
-.comentario{
-background-color: #f8f8f8;
-border: 1px solid #dbdbdb;
-padding: 10px;
-border-radius: 5px;
-margin-bottom: 10px;
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #0095f6;
+    box-shadow: 0 0 0 3px rgba(0, 149, 246, 0.15);
 }
 
-.comentario strong{
-display: block;
-margin-bottom: 5px;
+/* =========================
+   BOTONES
+========================= */
+
+button {
+    background-color: #0095f6;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-/* SEPARADORES */
+button:hover {
+    background-color: #0077cc;
+}
 
-hr{
-margin: 15px 0;
-border: none;
-border-top: 1px solid #dbdbdb;
+button:active {
+    transform: scale(0.98);
+}
+
+/* Botón eliminar dentro de formulario */
+form[action*="eliminar"] button {
+    background-color: #dc2626;
+}
+
+form[action*="eliminar"] button:hover {
+    background-color: #b91c1c;
+}
+
+/* =========================
+   COMENTARIOS
+========================= */
+
+.comentario {
+    background-color: #f9fafb;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.comentario strong {
+    display: block;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.comentario p {
+    color: #4b5563;
+}
+
+/* =========================
+   SEPARADORES
+========================= */
+
+hr {
+    margin: 14px 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* =========================
+   MENSAJES SIMPLES
+========================= */
+
+main > p {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+    nav {
+        padding: 12px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    main {
+        margin: 16px auto;
+        padding: 0 12px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .publicacion,
+    form {
+        padding: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+        max-width: 100%;
+    }
 }
