@@ -297,3 +297,159 @@ main > p {
         max-width: 100%;
     }
 }
+/* =========================
+   FORMULARIO CREAR PUBLICACIÓN
+========================= */
+
+.contenedor-form-publicacion {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.contenedor-form-publicacion h1,
+.contenedor-form-publicacion h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 28px;
+}
+
+.form-publicacion {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.form-grupo input,
+.form-grupo textarea,
+.form-grupo select {
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-grupo input:focus,
+.form-grupo textarea:focus,
+.form-grupo select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.18);
+}
+
+.form-grupo textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-grupo input[type="file"] {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #34495e;
+    font-weight: 500;
+}
+
+.form-check input {
+    width: 18px;
+    height: 18px;
+}
+
+.acciones-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-guardar,
+.btn-cancelar {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-guardar {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-guardar:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.btn-cancelar {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-cancelar:hover {
+    background-color: #cfcfcf;
+    transform: translateY(-1px);
+}
+
+/* Mensajes de error o aviso */
+.mensaje-error {
+    background-color: #ffe5e5;
+    color: #b00020;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.mensaje-exito {
+    background-color: #e6ffed;
+    color: #1e7e34;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-form-publicacion {
+        margin: 20px;
+        padding: 22px;
+    }
+
+    .acciones-form {
+        flex-direction: column;
+    }
+
+    .btn-guardar,
+    .btn-cancelar {
+        width: 100%;
+    }
+}

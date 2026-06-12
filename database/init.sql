@@ -145,9 +145,9 @@ INSERT INTO roles (nombre) VALUES
 ('administrador');
 
 INSERT INTO usuarios (nombre, email, password, id_rol) VALUES
-('Tomas', 'tomas@test.com', '1234', 1),
-('Profesor', 'profesor@test.com', '1234', 2),
-('Sol', 'sol@test.com', '1234', 3);
+('Tomas', 'tomasmigliozzi@gmail.com', '1234', 1),
+('Profesor', 'profesor@test.com', '123', 1);
+
 
 INSERT INTO categorias (nombre) VALUES
 ('Paisajes'),

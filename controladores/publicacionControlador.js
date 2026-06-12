@@ -262,45 +262,148 @@ export const mostrarDetallePublicacion = async (req, res) => {
         res.send("Error al mostrar detalle de publicación");
     }
 };
-export const mostrarFormularioEditar = (req,res) =>{
-    const id = parseInt(req.params.id);
 
-    const publicacion = publicaciones.find(
-        p => p.id === id 
-    );
-    if(!publicacion){
-        return res.send("Publicacion no encontrada");
-
-    }
-    res.render("publicaciones/editar",{
-       publicacion 
-    });
-};
-export const editarPublicacion = (req,res) =>{
+export const mostrarFormularioEditar = async (req, res) => {
     const id = parseInt(req.params.id);
-    const usuario = req.session.usuario ;
-    const publicacion = publicaciones.find(
-        p => p.id === id 
-    );
-    if(!usuario){
+    const usuario = req.session.usuario;
+
+    if (!usuario) {
         return res.redirect("/usuarios/login");
     }
-    if(!publicacion){
-        return res.send("Publicacion no encontrada");
-    }
-    if(publicacion.autorId !== usuario.id) {
-        return res.send("No podes editar una publicacion que no es tuya");
-    }
-    
-    publicacion.titulo = req.body.titulo;
-    publicacion.categoria = req.body.categoria;
-    publicacion.autor = req.body.autor;
-    publicacion.descripcion = req.body.descripcion;
 
-    res.redirect(`/publicaciones/${id}`);
-}
-export const eliminarPublicacion = (req,res) =>{
-     console.log("Entró a eliminar");
+    if (isNaN(id)) {
+        return res.send("ID de publicación inválido");
+    }
+
+    try {
+        const resultado = await pool.query(
+            `
+            SELECT 
+                p.id_publicacion AS id,
+                p.titulo,
+                p.descripcion,
+                p.id_usuario AS "autorId",
+                u.nombre AS autor,
+                c.nombre AS categoria
+            FROM publicaciones p
+            INNER JOIN usuarios u ON p.id_usuario = u.id_usuario
+            LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+            WHERE p.id_publicacion = $1
+            `,
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.send("Publicación no encontrada");
+        }
+
+        const publicacion = resultado.rows[0];
+
+        if (publicacion.autorId !== usuario.id) {
+            return res.send("No podés editar una publicación que no es tuya");
+        }
+
+        res.render("publicaciones/editar", {
+            publicacion
+        });
+
+    } catch (error) {
+        console.error("Error al mostrar formulario de edición");
+        console.error(error);
+        res.send("Error al mostrar formulario de edición");
+    }
+};
+export const editarPublicacion = async (req, res) => {
+    const id = parseInt(req.params.id);
+    const usuario = req.session.usuario;
+
+    if (!usuario) {
+        return res.redirect("/usuarios/login");
+    }
+
+    if (isNaN(id)) {
+        return res.send("ID de publicación inválido");
+    }
+
+    const client = await pool.connect();
+
+    try {
+        await client.query("BEGIN");
+
+        const publicacionResultado = await client.query(
+            `
+            SELECT id_publicacion, id_usuario
+            FROM publicaciones
+            WHERE id_publicacion = $1
+            `,
+            [id]
+        );
+
+        if (publicacionResultado.rows.length === 0) {
+            await client.query("ROLLBACK");
+            return res.send("Publicación no encontrada");
+        }
+
+        const publicacion = publicacionResultado.rows[0];
+
+        if (publicacion.id_usuario !== usuario.id) {
+            await client.query("ROLLBACK");
+            return res.send("No podés editar una publicación que no es tuya");
+        }
+
+        let categoriaResultado = await client.query(
+            "SELECT id_categoria FROM categorias WHERE nombre = $1",
+            [req.body.categoria]
+        );
+
+        let idCategoria;
+
+        if (categoriaResultado.rows.length > 0) {
+            idCategoria = categoriaResultado.rows[0].id_categoria;
+        } else {
+            const nuevaCategoria = await client.query(
+                "INSERT INTO categorias (nombre) VALUES ($1) RETURNING id_categoria",
+                [req.body.categoria]
+            );
+
+            idCategoria = nuevaCategoria.rows[0].id_categoria;
+        }
+
+        await client.query(
+            `
+            UPDATE publicaciones
+            SET titulo = $1,
+                descripcion = $2,
+                id_categoria = $3
+            WHERE id_publicacion = $4
+            AND id_usuario = $5
+            `,
+            [
+                req.body.titulo,
+                req.body.descripcion,
+                idCategoria,
+                id,
+                usuario.id
+            ]
+        );
+
+        await client.query("COMMIT");
+
+        res.redirect(`/publicaciones/${id}`);
+
+    } catch (error) {
+        await client.query("ROLLBACK");
+
+        console.error("Error al editar publicación");
+        console.error(error);
+        res.send("Error al editar publicación");
+
+    } finally {
+        client.release();
+    }
+};
+export const eliminarPublicacion = async (req, res) => {
+    console.log("Entró a eliminar");
 
     const id = parseInt(req.params.id);
     const usuario = req.session.usuario;
@@ -309,24 +412,33 @@ export const eliminarPublicacion = (req,res) =>{
         return res.redirect("/usuarios/login");
     }
 
-    const indice = publicaciones.findIndex(
-        p => p.id === id
-    );
-
-    if (indice === -1) {
-        return res.send("Publicacion no encontrada");
+    if (isNaN(id)) {
+        return res.send("ID de publicación inválido");
     }
 
-    const publicacion = publicaciones[indice];
+    try {
+        const resultado = await pool.query(
+            `
+            DELETE FROM publicaciones
+            WHERE id_publicacion = $1
+            AND id_usuario = $2
+            RETURNING id_publicacion
+            `,
+            [id, usuario.id]
+        );
 
-    if (publicacion.autorId !== usuario.id) {
-        return res.send("No podes eliminar una publicacion que no es tuya");
+        if (resultado.rowCount === 0) {
+            return res.send("Publicación no encontrada o no podés eliminarla");
+        }
+
+        res.redirect("/publicaciones");
+
+    } catch (error) {
+        console.error("Error al eliminar publicación");
+        console.error(error);
+        res.send("Error al eliminar publicación");
     }
-
-    publicaciones.splice(indice, 1);
-
-    res.redirect("/publicaciones");
-}    
+};
 //comentarios
 export const crearComentario = async (req, res) => {
     const publicacionId = parseInt(req.params.id);
