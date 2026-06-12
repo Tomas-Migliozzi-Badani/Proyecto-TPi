@@ -10,7 +10,7 @@ block content
         div 
             p Valoración promedio: #{publicacion.valoraciones || 0}
             p Cantidad de valoraciones: #{publicacion.cantidadValoracion || 0}
-    if usuario && usuario.id === publicacion.autorId
+    if usuario && usuario.id !== publicacion.autorId
             form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
                 label(for="puntaje") Valorá esta publicación:
                 select(name="puntaje" id="puntaje" required)
