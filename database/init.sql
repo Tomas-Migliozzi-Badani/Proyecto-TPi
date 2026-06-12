@@ -52,7 +52,7 @@ CREATE TABLE publicaciones (
 CREATE TABLE imagenes (
     id_imagen SERIAL PRIMARY KEY,
     id_publicacion INT NOT NULL,
-    url_imagen VARCHAR(255) NOT NULL,
+    url_imagen TEXT NOT NULL,
     licencia VARCHAR(30) NOT NULL,
     marca_agua VARCHAR(100),
 
@@ -146,8 +146,8 @@ INSERT INTO roles (nombre) VALUES
 
 INSERT INTO usuarios (nombre, email, password, id_rol) VALUES
 ('Tomas', 'tomas@test.com', '1234', 1),
-('Profesor', 'profesor@test.com', '1234', 1),
-('Sol', 'sol@test.com', '1234', 1);
+('Profesor', 'profesor@test.com', '1234', 2),
+('Sol', 'sol@test.com', '1234', 3);
 
 INSERT INTO categorias (nombre) VALUES
 ('Paisajes'),

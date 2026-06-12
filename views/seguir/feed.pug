@@ -18,7 +18,25 @@ block content
                 h3= u.nombre
                 p Email: #{u.email}
 
-        p Más adelante acá vamos a mostrar las publicaciones reales de estos usuarios.
+        hr
+
+        if publicaciones && publicaciones.length > 0
+            h2 Publicaciones de usuarios que sigo
+
+            each publicacion in publicaciones
+                div.publicacion
+                    h3= publicacion.titulo
+                    p Autor: #{publicacion.autor}
+                    p Categoria: #{publicacion.categoria}
+
+                    if publicacion.imagenes && publicacion.imagenes.length > 0
+                        img(src=publicacion.imagenes[0] alt="Imagen de la publicación" width="200")
+
+                    br
+                    a(href=`/publicaciones/${publicacion.id}`) Ver detalle
+
+        else
+            p Los usuarios que seguís todavía no tienen publicaciones.
 
     br
     a(href="/seguimientos") Volver a seguimientos
