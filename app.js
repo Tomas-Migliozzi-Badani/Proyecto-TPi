@@ -3,6 +3,7 @@ import express from "express";
 import publicacionRouter from './rutas/publicacionRouter.js';
 import session from "express-session";
 import usuarioRouter from './rutas/usuarioRouter.js';
+import seguirRouter from "./rutas/seguirRouter.js";
 //constantes
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -40,6 +41,7 @@ app.get("/perfil",(req,res) =>{
 
 app.use("/usuarios",usuarioRouter);
 app.use("/publicaciones",publicacionRouter);
+app.use("/seguimientos", seguirRouter);
 //app.use("/categorias",categoriaRouter);
 /*app.get('/categorias', (req,res)=>{
     res.render('categorias');

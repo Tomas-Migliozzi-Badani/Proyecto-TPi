@@ -19,9 +19,11 @@ html(lang="es")
                     a(href="/publicaciones/crear") Crear publicacion
                 li 
                     a(href="/usuarios/login") Iniciar sesion 
+                li
+                    a(href="/seguimientos") Seguimientos
                 li 
                     a(href="/usuarios/registro") Registrarse        
-        
+
         if usuario 
             div.usuario-logeado
             strong Bienvenido #{usuario.nombre}

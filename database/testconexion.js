@@ -8,5 +8,9 @@ try {
     await pool.end();
 } catch (error) {
     console.error("Error al conectar con PostgreSQL");
-    console.error(error.message);
+    console.error("Mensaje:", error.message);
+    console.error("Código:", error.code);
+    console.error("Detalle completo:", error);
+
+    await pool.end();
 }

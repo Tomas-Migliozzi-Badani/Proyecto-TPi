@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+
+    h1 Usuarios para seguir
+
+    p Usuario logueado: #{usuario.nombre}
+
+    a(href="/seguimientos/feed") Ver publicaciones de usuarios que sigo
+
+    if usuarios.length === 0
+        p No hay usuarios disponibles para seguir.
+
+    each u in usuarios
+        div.publicacion
+            h3= u.nombre
+            p Email: #{u.email}
+
+            - const yaSigue = seguimientos.find(s => s.seguidorId === usuario.id && s.seguidoId === u.id)
+
+            if yaSigue
+                form(action=`/seguimientos/${u.id}/dejar-de-seguir` method="POST")
+                    button(type="submit") Dejar de seguir
+            else
+                form(action=`/seguimientos/${u.id}/seguir` method="POST")
+                    button(type="submit") Seguir
+
+    br
+    a(href="/publicaciones") Volver a publicaciones

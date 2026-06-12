@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+
+    h1 Publicaciones de usuarios que sigo
+
+    p Usuario logueado: #{usuario.nombre}
+
+    if usuariosSeguidos.length === 0
+        p Todavía no seguís a ningún usuario.
+        a(href="/seguimientos") Buscar usuarios para seguir
+
+    else
+        h2 Usuarios seguidos
+
+        each u in usuariosSeguidos
+            div.publicacion
+                h3= u.nombre
+                p Email: #{u.email}
+
+        p Más adelante acá vamos a mostrar las publicaciones reales de estos usuarios.
+
+    br
+    a(href="/seguimientos") Volver a seguimientos
