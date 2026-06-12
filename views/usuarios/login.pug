@@ -1,9 +1,10 @@
 extends ../layout
 
 block content 
-    h2 inisiar sesion 
+    h2 iniciar sesion 
 
-
+    if mensajeRegistro 
+        p.alerta= mensajeRegistro 
     form(action="/usuarios/login" method="post") 
 
         div 
@@ -12,5 +13,9 @@ block content
         div 
             label(for="password") Password: 
             input(type="password" name="password")
-
-        button(type="submit") Ingresar
+        div     
+            button(type="submit") Inicio sesion
+        div 
+            p ¿No tenés cuenta?
+            a(href="/usuarios/registro") Registrate                
+        

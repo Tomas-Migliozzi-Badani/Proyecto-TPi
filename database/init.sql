@@ -102,13 +102,13 @@ CREATE TABLE comentarios (
 
 CREATE TABLE valoraciones (
     id_valoracion SERIAL PRIMARY KEY,
-    id_publicacion INT NOT NULL,
+    id_imagen INT NOT NULL,
     id_usuario INT NOT NULL,
     puntaje INT NOT NULL,
     fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_valoracion_publicacion
-        FOREIGN KEY (id_publicacion) REFERENCES publicaciones(id_publicacion)
+    CONSTRAINT fk_valoracion_imagen
+        FOREIGN KEY (id_imagen) REFERENCES imagenes(id_imagen)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_valoracion_usuario
@@ -117,10 +117,9 @@ CREATE TABLE valoraciones (
     CONSTRAINT chk_puntaje
         CHECK (puntaje BETWEEN 1 AND 5),
 
-    CONSTRAINT unq_usuario_publicacion
-        UNIQUE (id_publicacion, id_usuario)
+    CONSTRAINT unq_usuario_imagen
+        UNIQUE (id_imagen, id_usuario)
 );
-
 CREATE TABLE seguidores (
     id_seguidor SERIAL PRIMARY KEY,
     id_usuario_seguidor INT NOT NULL,
@@ -141,3 +140,21 @@ CREATE TABLE seguidores (
     CONSTRAINT chk_no_seguirse
         CHECK (id_usuario_seguidor <> id_usuario_seguido)
 );
+INSERT INTO roles (nombre) VALUES
+('usuario'),
+('administrador');
+
+INSERT INTO usuarios (nombre, email, password, id_rol) VALUES
+('Tomas', 'tomas@test.com', '1234', 1),
+('Profesor', 'profesor@test.com', '1234', 1),
+('Sol', 'sol@test.com', '1234', 1);
+
+INSERT INTO categorias (nombre) VALUES
+('Paisajes'),
+('Retratos'),
+('Naturaleza');
+
+INSERT INTO etiquetas (nombre) VALUES
+('foto'),
+('arte'),
+('viaje');

@@ -7,10 +7,16 @@ block content
         p Autor: #{publicacion.autor}
         p Categoria: #{publicacion.categoria} 
         p Descripcion: #{publicacion.descripcion} 
+        if publicacion.imagenes && publicacion.imagenes.length > 0
+            h3 Imagen
+            each imagen in publicacion.imagenes
+                img(src=imagen alt="Imagen de la publicación" width="350")
+        else
+            p Esta publicación no tiene imagen cargada.
         div 
             p Valoración promedio: #{publicacion.valoraciones || 0}
             p Cantidad de valoraciones: #{publicacion.cantidadValoracion || 0}
-    if usuario && usuario.id !== publicacion.autorId
+        if usuario && usuario.id !== publicacion.autorId
             form(action=`/publicaciones/${publicacion.id}/valorar` method="POST")
                 label(for="puntaje") Valorá esta publicación:
                 select(name="puntaje" id="puntaje" required)
@@ -21,13 +27,13 @@ block content
                     option(value="1") 1 estrella
                 button(type="submit") Guardar valoración
 
-    if usuario && usuario.id === publicacion.autorId
-        br
-        a(href=`/publicaciones/${publicacion.id}/editar`) Editar
-        form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
-        button(type="submit") Eliminar publicacion 
-    br 
-    a(href="/publicaciones") Volver al menu  
+        if usuario && usuario.id === publicacion.autorId
+            br
+            a(href=`/publicaciones/${publicacion.id}/editar`) Editar
+            form(action=`/publicaciones/${publicacion.id}/eliminar` method="POST")
+                button(type="submit") Eliminar publicacion 
+            br 
+            a(href="/publicaciones") Volver al menu  
      
 
     h2 Comentarios 

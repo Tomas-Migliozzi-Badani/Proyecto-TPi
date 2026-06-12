@@ -21,6 +21,8 @@ block content
             h3=publicacion.titulo 
             p Autor: #{publicacion.autor} 
             p Categoria: #{publicacion.categoria} 
+            if publicacion.imagenes && publicacion.imagenes.length > 0
+                img(src=publicacion.imagenes[0] alt="Imagen de la publicación" width="200")
             
             hr
             a(href=`/publicaciones/${publicacion.id}`) Ver detalle 

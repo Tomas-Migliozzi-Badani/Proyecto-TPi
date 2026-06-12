@@ -8,6 +8,7 @@
     "start": "node app.js",
     "dev": "node --watch app.js",
     "db:test": "node database/testConexion.js",
+    "db:init": "node database/init.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

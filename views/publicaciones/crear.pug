@@ -19,8 +19,37 @@ html(lang="es")
             div 
                 label(for="descripcion") Descripcion: 
                 textarea(name="descripcion" id="descripcion")     
+            div     
+                label(for="imagen") Imagen
+                input(type="file" id="imagen" accept="image/*")
+
+                input(type="hidden" name="imagenBase64" id="imagenBase64")
+
+                img(id="previewImagen" width="250")
 
             button(type="submit") Crear Publicacion 
 
         br
         a(href="/publicaciones") volver a las publicaciones     
+
+    script.
+        const inputImagen = document.getElementById("imagen");
+        const inputBase64 = document.getElementById("imagenBase64");
+        const previewImagen = document.getElementById("previewImagen");
+
+        inputImagen.addEventListener("change", function () {
+            const archivo = inputImagen.files[0];
+
+            if (!archivo) {
+                return;
+            }
+
+            const lector = new FileReader();
+
+            lector.onload = function () {
+                inputBase64.value = lector.result;
+                previewImagen.src = lector.result;
+            };
+
+            lector.readAsDataURL(archivo);
+            });

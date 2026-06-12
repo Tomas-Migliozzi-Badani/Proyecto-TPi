@@ -43,15 +43,20 @@ export const crearPublicacion = (req,res) => {
     if(!usuario) {
         return res.redirect("/usuarios/login");
     }
+    const imagenes = [];
 
+    if (req.body.imagenBase64) {
+        imagenes.push(req.body.imagenBase64);
+    }
     const nuevaPublicacion = {
         
         id:publicaciones.length + 1 ,
         titulo: req.body.titulo , 
-        autor: req.body.autor ,
+        autor: usuario.nombre ,
         autorId: usuario.id ,
         categoria: req.body.categoria , 
         descripcion: req.body.descripcion ,
+        imagenes: imagenes,
         valoraciones: 0 ,
         cantidadValoracion: 0  
     
